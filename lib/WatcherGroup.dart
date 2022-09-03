@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import 'WatcherGroupLocation.dart';
+
 
 class WatcherGroup {
   final bool isNotificationEnabled;
@@ -10,7 +12,7 @@ class WatcherGroup {
   final bool filterOutSuspiciousItems;
   final bool onlyPolisWithPictures;
   final String nameSpace;
-  final List locations;
+  final List<WatcherGroupLocation> locations;
   final String name;
   final String assignmentType;
   final List estateTypes;
@@ -36,23 +38,26 @@ class WatcherGroup {
     required this.estateTypes,
     required this.createTime,
     required this.usesUmbrella,
-    this.id,
-    this.minPrice,
-    this.maxPrice,
-    this.minFloorArea,
-    this.maxFloorArea,
-    this.minUnitPrice,
-    this.maxUnitPrice,
+    required this.id,
+    required this.minPrice,
+    required this.maxPrice,
+    required this.minFloorArea,
+    required this.maxFloorArea,
+    required this.minUnitPrice,
+    required this.maxUnitPrice,
   });
 
   factory WatcherGroup.fromJson(Map<String, dynamic> json) {
+    List loc0 = json['locations'];
+    List<WatcherGroupLocation> loc = loc0.map((item) => WatcherGroupLocation.fromJson(item)).toList();
+
     return WatcherGroup(
       isNotificationEnabled: json['isNotificationEnabled'],
       privateAdvertisersOnly: json['privateAdvertisersOnly'],
       filterOutSuspiciousItems: json['filterOutSuspiciousItems'],
       onlyPolisWithPictures: json['onlyPolisWithPictures'],
       nameSpace: json['nameSpace'],
-      locations: json['locations'],
+      locations: loc,
       name: json['name'],
       assignmentType: json['assignmentType'],
       estateTypes: json['estateTypes'],
@@ -82,6 +87,90 @@ class WatcherGroup {
       throw Exception('Failed to load items');
     }
   }
+
+  String getAssignmentTypeName() {
+    if ("FOR_SALE" == assignmentType) {
+      return "eladó";
+    }
+    return "";
+  }
+
+  String getEstateTypesName() {
+    String str = "";
+    if (estateTypes!= null && estateTypes.contains("HOUSE")) {
+      if (str.isNotEmpty) {
+        str += ", ";
+      }
+      str += "Ház";
+    }
+    if (estateTypes!= null && estateTypes.contains("FLAT")) {
+      if (str.isNotEmpty) {
+        str += ", ";
+      }
+      str += "Lakás";
+    }
+    return str;
+  }
+
+
+  String getLocations() {
+    String str = "";
+    for (WatcherGroupLocation location in locations) {
+      String city = location.adminLevels["8"];
+      if (str.isNotEmpty) {
+        str += ", ";
+      }
+      str += city;
+    }
+    return str;
+  }
+
+  String getMinMaxPrice() {
+    String str = "";
+    String minStr = "";
+    if (minPrice != null) {
+      minStr = (minPrice! ~/ 1000000).toString();
+    }
+    String maxStr = "";
+    if (maxPrice != null) {
+      maxStr = (maxPrice! ~/ 1000000).toString();
+    }
+    if (minStr.isNotEmpty && maxStr.isNotEmpty) {
+      str = "$minStr - $maxStr";
+    } else if (minStr.isNotEmpty) {
+      str = "$minStr+ ";
+    } else if (maxStr.isNotEmpty) {
+      str = " - $maxStr";
+    }
+    if (str.isNotEmpty) {
+      str += " millió Forint";
+    }
+    return str;
+  }
+
+  String getMinMaxFloorArea() {
+    String str = "";
+    String minStr = "";
+    if (minFloorArea != null) {
+      minStr = (minFloorArea! ~/ 1000000).toString();
+    }
+    String maxStr = "";
+    if (maxFloorArea != null) {
+      maxStr = (maxFloorArea! ~/ 1000000).toString();
+    }
+    if (minStr.isNotEmpty && maxStr.isNotEmpty) {
+      str = "$minStr - $maxStr";
+    } else if (minStr.isNotEmpty) {
+      str = "$minStr+ ";
+    } else if (maxStr.isNotEmpty) {
+      str = " - $maxStr";
+    }
+    if (str.isNotEmpty) {
+      str += " m2";
+    }
+    return str;
+  }
+
 
 }
 
