@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:realmon_demo/WatcherGroup.dart';
 import 'package:sliver_header_delegate/sliver_header_delegate.dart';
 
-const primaryColor = Color(0xBE7A81FF); //todo
+const primaryColor = Color(0xBE0081FF); //todo
 
 
 class MainAppWidget extends StatelessWidget {
@@ -10,12 +10,6 @@ class MainAppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    //todo
-    final expandedStyle = theme.textTheme.headline4?.copyWith(color: Colors.white);
-    //todo
-    final collapsedStyle = theme.textTheme.headline6?.copyWith(color: Colors.white);
-    const padding = EdgeInsets.symmetric(horizontal: 16, vertical: 16);
 
     return Scaffold(
       body: CustomScrollView(
@@ -34,12 +28,12 @@ class MainAppWidget extends StatelessWidget {
                 collapsedColor: primaryColor,
               ),
               actions: [
-                IconButton(
+                /*IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {
                     //todo
                   },
-                ),
+                ),*/
                 IconButton(
                   icon: const Icon(Icons.more_vert),
                   onPressed: () {
@@ -48,13 +42,28 @@ class MainAppWidget extends StatelessWidget {
                 ),
               ],
               children: [
+                FlexibleHeaderItem(
+                  child:
+                  Row( // todo
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      getHeaderButtonWidget(),
+                      getHeaderButtonWidget(),
+                      getHeaderButtonWidget(),
+                    ],
+                  ),
+                  expandedAlignment: Alignment.centerRight,
+                  collapsedAlignment: Alignment.topCenter,
+                  //expandedPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  options: const [HeaderItemOptions.hide],
+                ),
                 FlexibleTextItem(
                   text: 'Real Monitor',
-                  collapsedStyle: collapsedStyle,
-                  expandedStyle: expandedStyle,
+                  collapsedStyle: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
+                  expandedStyle: Theme.of(context).textTheme.headline4?.copyWith(color: Colors.white),
                   expandedAlignment: Alignment.bottomLeft,
                   collapsedAlignment: Alignment.center,
-                  expandedPadding: padding,
+                  expandedPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 ),
               ],
             ),
@@ -64,6 +73,26 @@ class MainAppWidget extends StatelessWidget {
       ),
     );
   }
+
+  Widget getHeaderButtonWidget() {
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Material(
+        color: const Color(0x7F999999),
+        child: InkWell(
+          radius: 5,
+          onTap: () {},
+          child: const Icon(
+            Icons.add,
+            color: Colors.red,
+            size: 60,
+          ),
+        ),
+      ),
+    );
+  }
+
+
 }
 
 class _MainList extends StatelessWidget {
@@ -98,12 +127,8 @@ class _MainList extends StatelessWidget {
                   );
               } else {
                 List<WatcherGroup> items = snapshot.data!;
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 10, // todo items.length,
-                  itemBuilder: (context, index) {
-                    return getWatcherGroupWidget(items[0]); // todo items[index]
-                  },
+                return Column(
+                  children: getWatcherGroups(items),
                 );
 
               }
@@ -111,6 +136,19 @@ class _MainList extends StatelessWidget {
         ),
       );
 
+  }
+
+  List<Widget> getWatcherGroups(List<WatcherGroup> items) {
+    List<Widget> list = [];
+    /* todo: final code:
+    for (WatcherGroup item in items) {
+      list.add(getWatcherGroupWidget(item));
+    }*/
+    // todo: temp for many rows
+    for (int i = 0; i < 5; i++) {
+      list.add(getWatcherGroupWidget(items[0]));
+    }
+    return list;
   }
 
   Widget getWatcherGroupWidget(WatcherGroup item) {
