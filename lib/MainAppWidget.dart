@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:realmon_demo/WatcherGroup.dart';
 import 'package:sliver_header_delegate/sliver_header_delegate.dart';
 
 const primaryColor = Color(0xBE7A81FF); //todo
@@ -70,9 +71,64 @@ class _SliverList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList(
+    return
+      SliverToBoxAdapter(
+        child: FutureBuilder<List<WatcherGroup>>(
+            future: WatcherGroup.fetchWatcherGroups(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                print("hasError:\n${snapshot.error}");
+                return Padding(
+                  padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
+                  child: Center(
+                    child: Text(
+                        'An error has occurred!\n\n${snapshot.error?.toString()}',
+                      style: const TextStyle(fontSize: 17),
+                      maxLines: 20,
+                    ),
+                  ),
+                );
+              } else if (!snapshot.hasData) {
+                return
+                  const Padding(
+                    padding: EdgeInsets.all(100.0),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+              } else {
+                return ListView(
+                  shrinkWrap: true,
+                  children: [
+                    ListTile(
+                      title: const Text('(650) 555-1234'),
+                      subtitle: const Text('Mobile'),
+                      leading: const Icon(Icons.phone),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.message),
+                        onPressed: () {},
+                      ),
+                    ),
+                    ListTile(
+                      title: const Text('(323) 555-6789'),
+                      subtitle: const Text('Work'),
+                      leading: const SizedBox(),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.message),
+                        onPressed: () {},
+                      ),
+                    ),
+
+                  ],
+                );
+
+              }
+            }
+        ),
+      );
+
+    /*return SliverList(
       delegate: SliverChildListDelegate(
-        // todo
         [
           ListTile(
             title: const Text('(650) 555-1234'),
@@ -165,7 +221,15 @@ class _SliverList extends StatelessWidget {
             leading: SizedBox(),
           ),
         ],
+
+
       ),
-    );
+    );*/
   }
+
+  /*
+  Widget getList() {
+
+  }*/
+
 }
