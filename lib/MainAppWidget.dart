@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:realmon_demo/WatcherGroup.dart';
 import 'package:sliver_header_delegate/sliver_header_delegate.dart';
 
-const primaryColor = Color(0xBE0081FF); //todo
+import 'Extensions.dart';
 
 
 class MainAppWidget extends StatelessWidget {
@@ -28,39 +28,43 @@ class MainAppWidget extends StatelessWidget {
                 collapsedColor: primaryColor,
               ),
               actions: [
-                /*IconButton(
+                /* todo: alternative: IconButtons vs FlexibleHeaderItem?
+                IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {
-                    //todo
                   },
-                ),*/
+                ),
+                IconButton(
+                  icon: const Icon(Icons.favorite),
+                  onPressed: () {
+                  },
+                ),
                 IconButton(
                   icon: const Icon(Icons.more_vert),
                   onPressed: () {
-                    //todo
                   },
-                ),
+                ),*/
               ],
               children: [
                 FlexibleHeaderItem(
-                  child:
-                  Row( // todo
+                  expandedAlignment: Alignment.topRight,
+                  collapsedAlignment: Alignment.centerRight,
+                  //options: const [HeaderItemOptions.hide],
+                  expandedPadding: const EdgeInsets.only(right: 10, top: 50),
+                  collapsedPadding: const EdgeInsets.only(right: 10),
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      getHeaderButtonWidget(),
-                      getHeaderButtonWidget(),
-                      getHeaderButtonWidget(),
+                      getHeaderButtonWidget(Icons.favorite),
+                      getHeaderButtonWidget(Icons.search),
+                      getHeaderButtonWidget(Icons.remove_red_eye),
                     ],
                   ),
-                  expandedAlignment: Alignment.centerRight,
-                  collapsedAlignment: Alignment.topCenter,
-                  //expandedPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  options: const [HeaderItemOptions.hide],
                 ),
                 FlexibleTextItem(
                   text: 'Real Monitor',
                   collapsedStyle: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-                  expandedStyle: Theme.of(context).textTheme.headline4?.copyWith(color: Colors.white),
+                  expandedStyle: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white),
                   expandedAlignment: Alignment.bottomLeft,
                   collapsedAlignment: Alignment.center,
                   expandedPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -68,25 +72,23 @@ class MainAppWidget extends StatelessWidget {
               ],
             ),
           ),
-          const _MainList(),
+          const _MainPageList(),
         ],
       ),
     );
   }
 
-  Widget getHeaderButtonWidget() {
+
+  Widget getHeaderButtonWidget(IconData iconData) {
     return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: Material(
-        color: const Color(0x7F999999),
-        child: InkWell(
-          radius: 5,
-          onTap: () {},
-          child: const Icon(
-            Icons.add,
-            color: Colors.red,
-            size: 60,
-          ),
+      padding: const EdgeInsets.all(4.0),
+      child: InkWell(
+        radius: 5,
+        onTap: () {},
+        child: Icon(
+          iconData,
+          color: Colors.white,
+          size: 25,
         ),
       ),
     );
@@ -95,8 +97,10 @@ class MainAppWidget extends StatelessWidget {
 
 }
 
-class _MainList extends StatelessWidget {
-  const _MainList({super.key});
+
+
+class _MainPageList extends StatelessWidget {
+  const _MainPageList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -202,6 +206,7 @@ class _MainList extends StatelessWidget {
                         icon: const Icon(
                           size: 30,
                           Icons.delete,
+                          color: MyGray2,
                         ),
                       ),
                       IconButton(
@@ -209,6 +214,7 @@ class _MainList extends StatelessWidget {
                         icon: const Icon(
                           size: 30,
                           Icons.notifications,
+                          color: MyGray2,
                         ),
                       ),
                       IconButton(
@@ -216,6 +222,7 @@ class _MainList extends StatelessWidget {
                         icon: const Icon(
                           size: 30,
                           Icons.edit,
+                          color: MyGray2,
                         ),
                       ),
                     ],
