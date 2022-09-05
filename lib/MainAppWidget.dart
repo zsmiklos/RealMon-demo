@@ -131,8 +131,11 @@ class _MainPageList extends StatelessWidget {
                   );
               } else {
                 List<WatcherGroup> items = snapshot.data!;
-                return Column(
-                  children: getWatcherGroups(items),
+                return Container(
+                  color: MyWhite3,
+                  child: Column(
+                    children: getWatcherGroups(items),
+                  ),
                 );
 
               }
@@ -158,77 +161,180 @@ class _MainPageList extends StatelessWidget {
   Widget getWatcherGroupWidget(WatcherGroup item) {
     return
       Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(5)),
-          child: Container(
-            color: Colors.black12,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      item.name,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      "${item.getAssignmentTypeName()} ${item.getEstateTypesName()}",
-                      style: const TextStyle(
-                          fontSize: 17
-                      ),
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(item.getLocations()),
-                      Text("Ár:" + item.getMinMaxPrice()),
-                      Text("Alapterület" + item.getMinMaxFloorArea()),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          size: 30,
-                          Icons.delete,
-                          color: MyGray2,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          size: 30,
-                          Icons.notifications,
-                          color: MyGray2,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          size: 30,
-                          Icons.edit,
-                          color: MyGray2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+        padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
+        child: Container(
+          decoration: BoxDecoration(
+            color: MyWhite5,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(
+                color: MyWhite2,
+                blurRadius: 4,
+                offset: Offset(4, 8), // Shadow position
               ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15, bottom: 2, left: 20, right: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                // title
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 0, left: 10),
+                  child: Text(
+                    item.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
+                  ),
+                ),
+                //subtitle
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20, left: 10),
+                  child: Text(
+                    "${item.getAssignmentTypeName()} ${item.getEstateTypesName()}",
+                    style: const TextStyle(
+                        fontSize: 17
+                    ),
+                  ),
+                ),
+
+                // inner block
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    child: Container(
+                      color: MyWhite4,
+                      //width: 200,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                // city
+                                Container(
+                                  padding: const EdgeInsets.only(top: 12, bottom: 12, left: 22, right: 12),
+                                  decoration: const BoxDecoration(
+                                    border: Border(bottom: BorderSide(color: MyWhite2)),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        item.getLocations(),
+                                        style: const TextStyle(
+                                          fontSize: 17,
+                                          color: MyGray1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // price
+                                Container(
+                                  padding: const EdgeInsets.only(top: 12, bottom: 12, left: 22, right: 12),
+                                  decoration: const BoxDecoration(
+                                    border: Border(bottom: BorderSide(color: MyWhite2)),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      const SizedBox(
+                                        width: 120,
+                                        child: Text(
+                                          "Ár",
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                            color: MyGray1,
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child:
+                                        Text(
+                                          item.getMinMaxPrice(),
+                                          style: const TextStyle(
+                                            fontSize: 17,
+                                            color: MyGray1,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // m2
+                                Container(
+                                  padding: const EdgeInsets.only(top: 12, bottom: 12, left: 22, right: 12),
+                                  child: Row(
+                                    children: [
+                                      const SizedBox(
+                                        width: 120,
+                                        child: Text(
+                                          "Alapterület",
+                                          style: TextStyle(
+                                              fontSize: 17
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          item.getMinMaxFloorArea(),
+                                          style: const TextStyle(
+                                              fontSize: 17
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        size: 35,
+                        Icons.delete,
+                        color: MyGray2,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        size: 35,
+                        Icons.notifications,
+                        color: MyGray2,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        size: 35,
+                        Icons.edit,
+                        color: MyGray2,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),

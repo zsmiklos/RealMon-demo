@@ -15,9 +15,9 @@ class WatcherGroup {
   final List<WatcherGroupLocation> locations;
   final String name;
   final String assignmentType;
-  final List estateTypes;
-  final int createTime;
-  final bool usesUmbrella;
+  final List? estateTypes;
+  final int? createTime;
+  final bool? usesUmbrella;
   final int? id;
   final int? minPrice;
   final int? maxPrice;
@@ -97,13 +97,13 @@ class WatcherGroup {
 
   String getEstateTypesName() {
     String str = "";
-    if (estateTypes!= null && estateTypes.contains("HOUSE")) {
+    if (estateTypes!= null && estateTypes!.contains("HOUSE")) {
       if (str.isNotEmpty) {
         str += ", ";
       }
       str += "Ház";
     }
-    if (estateTypes!= null && estateTypes.contains("FLAT")) {
+    if (estateTypes!= null && estateTypes!.contains("FLAT")) {
       if (str.isNotEmpty) {
         str += ", ";
       }
@@ -152,11 +152,11 @@ class WatcherGroup {
     String str = "";
     String minStr = "";
     if (minFloorArea != null) {
-      minStr = (minFloorArea! ~/ 1000000).toString();
+      minStr = minFloorArea!.toString();
     }
     String maxStr = "";
     if (maxFloorArea != null) {
-      maxStr = (maxFloorArea! ~/ 1000000).toString();
+      maxStr = maxFloorArea!.toString();
     }
     if (minStr.isNotEmpty && maxStr.isNotEmpty) {
       str = "$minStr - $maxStr";
