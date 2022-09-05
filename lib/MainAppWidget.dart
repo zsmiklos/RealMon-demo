@@ -12,6 +12,7 @@ class MainAppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: MyWhite3,
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: <Widget>[
@@ -116,7 +117,10 @@ class _MainPageList extends StatelessWidget {
                   child: Center(
                     child: Text(
                       'An error has occurred!\n\n${snapshot.error?.toString()}',
-                      style: const TextStyle(fontSize: 17),
+                      style: const TextStyle(
+                        fontSize: 17,
+                        color: MyGray1,
+                      ),
                       maxLines: 20,
                     ),
                   ),
@@ -152,7 +156,7 @@ class _MainPageList extends StatelessWidget {
       list.add(getWatcherGroupWidget(item));
     }*/
     // todo: temp for many rows
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 3; i++) {
       list.add(getWatcherGroupWidget(items[0]));
     }
     return list;
@@ -161,7 +165,7 @@ class _MainPageList extends StatelessWidget {
   Widget getWatcherGroupWidget(WatcherGroup item) {
     return
       Padding(
-        padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
+        padding: const EdgeInsets.only(top: 15, bottom: 5, left: 15, right: 15),
         child: Container(
           decoration: BoxDecoration(
             color: MyWhite5,
@@ -189,6 +193,7 @@ class _MainPageList extends StatelessWidget {
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
+                      color: MyGray1,
                     ),
                   ),
                 ),
@@ -198,7 +203,8 @@ class _MainPageList extends StatelessWidget {
                   child: Text(
                     "${item.getAssignmentTypeName()} ${item.getEstateTypesName()}",
                     style: const TextStyle(
-                        fontSize: 17
+                      fontSize: 17,
+                      color: MyGray1,
                     ),
                   ),
                 ),
@@ -281,7 +287,8 @@ class _MainPageList extends StatelessWidget {
                                         child: Text(
                                           "Alapterület",
                                           style: TextStyle(
-                                              fontSize: 17
+                                            fontSize: 17,
+                                            color: MyGray1,
                                           ),
                                         ),
                                       ),
@@ -289,7 +296,8 @@ class _MainPageList extends StatelessWidget {
                                         child: Text(
                                           item.getMinMaxFloorArea(),
                                           style: const TextStyle(
-                                              fontSize: 17
+                                            fontSize: 17,
+                                            color: MyGray1,
                                           ),
                                         ),
                                       ),
