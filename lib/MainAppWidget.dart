@@ -210,7 +210,6 @@ class _MainPageList extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: Container(
                       color: MyWhite4,
-                      //width: 200,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -311,26 +310,29 @@ class _MainPageList extends StatelessWidget {
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(
-                        size: 35,
                         Icons.delete,
+                        size: 35,
                         color: MyGray2,
                       ),
+                      tooltip: "Törlés",
                     ),
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(
-                        size: 35,
                         Icons.notifications,
+                        size: 35,
                         color: MyGray2,
                       ),
+                      tooltip: "Értesítés",
                     ),
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(
-                        size: 35,
                         Icons.edit,
+                        size: 35,
                         color: MyGray2,
                       ),
+                      tooltip: "Módosítás",
                     ),
                   ],
                 ),
