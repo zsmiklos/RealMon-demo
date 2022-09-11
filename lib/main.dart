@@ -1,11 +1,23 @@
 import 'dart:ui' as ui;
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import 'MainAppWidget.dart';
+import 'presentation/page/MainScreenWidget.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+      EasyLocalization(
+          supportedLocales: const [Locale('en', ''), Locale('hu', '')],
+          path: 'assets/translations',
+          fallbackLocale: const Locale('en', ''),
+          startLocale: const Locale('hu'),
+          child: const MyApp()
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,6 +27,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: const Locale("hu", ""),
       scrollBehavior: const MaterialScrollBehavior().copyWith( // for Win
         dragDevices: {ui.PointerDeviceKind.mouse, ui.PointerDeviceKind.touch, ui.PointerDeviceKind.stylus, ui.PointerDeviceKind.unknown},
       ),
@@ -22,7 +37,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
-      home: const MainAppWidget(),
+      home: const MainScreenWidget(),
     );
   }
 }

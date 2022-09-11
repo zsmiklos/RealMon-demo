@@ -1,19 +1,19 @@
 
-class WatcherGroupLocation {
+class WatcherGroupLocationDTO {
   final List accessTokens;
   final Map adminLevels;
   final String nameSpace;
   final List ids;
 
-  const WatcherGroupLocation({
+  const WatcherGroupLocationDTO({
     required this.accessTokens,
     required this.adminLevels,
     required this.nameSpace,
     required this.ids,
   });
 
-  factory WatcherGroupLocation.fromJson(Map<String, dynamic> json) {
-    return WatcherGroupLocation(
+  factory WatcherGroupLocationDTO.fromJson(Map<String, dynamic> json) {
+    return WatcherGroupLocationDTO(
       accessTokens: json['accessTokens'],
       adminLevels: json['adminLevels'],
       nameSpace: json['nameSpace'],

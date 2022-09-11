@@ -1,18 +1,14 @@
 
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
-
-import 'WatcherGroupLocation.dart';
+import 'WatcherGroupLocationDTO.dart';
 
 
-class WatcherGroup {
+class WatcherGroupDTO {
   final bool isNotificationEnabled;
   final bool privateAdvertisersOnly;
   final bool filterOutSuspiciousItems;
   final bool onlyPolisWithPictures;
   final String nameSpace;
-  final List<WatcherGroupLocation> locations;
+  final List<WatcherGroupLocationDTO> locations;
   final String name;
   final String assignmentType;
   final List? estateTypes;
@@ -26,7 +22,7 @@ class WatcherGroup {
   final int? minUnitPrice;
   final int? maxUnitPrice;
 
-  const WatcherGroup({
+  const WatcherGroupDTO({
     required this.isNotificationEnabled,
     required this.privateAdvertisersOnly,
     required this.filterOutSuspiciousItems,
@@ -47,11 +43,11 @@ class WatcherGroup {
     required this.maxUnitPrice,
   });
 
-  factory WatcherGroup.fromJson(Map<String, dynamic> json) {
+  factory WatcherGroupDTO.fromJson(Map<String, dynamic> json) {
     List loc0 = json['locations'];
-    List<WatcherGroupLocation> loc = loc0.map((item) => WatcherGroupLocation.fromJson(item)).toList();
+    List<WatcherGroupLocationDTO> loc = loc0.map((item) => WatcherGroupLocationDTO.fromJson(item)).toList();
 
-    return WatcherGroup(
+    return WatcherGroupDTO(
       isNotificationEnabled: json['isNotificationEnabled'],
       privateAdvertisersOnly: json['privateAdvertisersOnly'],
       filterOutSuspiciousItems: json['filterOutSuspiciousItems'],
@@ -71,104 +67,6 @@ class WatcherGroup {
       minUnitPrice: json['minUnitPrice'],
       maxUnitPrice: json['maxUnitPrice'],
     );
-  }
-
-  // util
-
-  static Future<List<WatcherGroup>> fetchWatcherGroups() async {
-    // get json data
-    final response = await http.Client().get(
-        Uri.parse('https://angolszotanito.hu/realm-demo.php')
-    );
-    if (response.statusCode == 200) {
-      Iterable parsed = jsonDecode(response.body);
-      return parsed.map((item) => WatcherGroup.fromJson(item)).toList();
-    } else {
-      throw Exception('Failed to load items');
-    }
-  }
-
-  String getAssignmentTypeName() {
-    if ("FOR_SALE" == assignmentType) {
-      return "eladó";
-    }
-    return "";
-  }
-
-  String getEstateTypesName() {
-    String str = "";
-    if (estateTypes!= null && estateTypes!.contains("HOUSE")) {
-      if (str.isNotEmpty) {
-        str += ", ";
-      }
-      str += "Ház";
-    }
-    if (estateTypes!= null && estateTypes!.contains("FLAT")) {
-      if (str.isNotEmpty) {
-        str += ", ";
-      }
-      str += "Lakás";
-    }
-    return str;
-  }
-
-
-  String getLocations() {
-    String str = "";
-    for (WatcherGroupLocation location in locations) {
-      String city = location.adminLevels["8"];
-      if (str.isNotEmpty) {
-        str += ", ";
-      }
-      str += city;
-    }
-    return str;
-  }
-
-  String getMinMaxPrice() {
-    String str = "";
-    String minStr = "";
-    if (minPrice != null) {
-      minStr = (minPrice! ~/ 1000000).toString();
-    }
-    String maxStr = "";
-    if (maxPrice != null) {
-      maxStr = (maxPrice! ~/ 1000000).toString();
-    }
-    if (minStr.isNotEmpty && maxStr.isNotEmpty) {
-      str = "$minStr - $maxStr";
-    } else if (minStr.isNotEmpty) {
-      str = "$minStr+ ";
-    } else if (maxStr.isNotEmpty) {
-      str = " - $maxStr";
-    }
-    if (str.isNotEmpty) {
-      str += " millió Forint";
-    }
-    return str;
-  }
-
-  String getMinMaxFloorArea() {
-    String str = "";
-    String minStr = "";
-    if (minFloorArea != null) {
-      minStr = minFloorArea!.toString();
-    }
-    String maxStr = "";
-    if (maxFloorArea != null) {
-      maxStr = maxFloorArea!.toString();
-    }
-    if (minStr.isNotEmpty && maxStr.isNotEmpty) {
-      str = "$minStr - $maxStr";
-    } else if (minStr.isNotEmpty) {
-      str = "$minStr+ ";
-    } else if (maxStr.isNotEmpty) {
-      str = " - $maxStr";
-    }
-    if (str.isNotEmpty) {
-      str += " m2";
-    }
-    return str;
   }
 
 
