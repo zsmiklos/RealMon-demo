@@ -3,7 +3,7 @@ import 'package:realmon_demo/data/dto/WatcherGroupLocationDTO.dart';
 
 class WatcherGroupLocation {
   final List accessTokens;
-  final Map adminLevels;
+  final Map<String, dynamic> adminLevels;
   final String nameSpace;
   final List ids;
 

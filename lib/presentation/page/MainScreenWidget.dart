@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sliver_header_delegate/sliver_header_delegate.dart';
 
@@ -63,7 +64,7 @@ class MainScreenWidget extends StatelessWidget {
                   ),
                 ),
                 FlexibleTextItem(
-                  text: 'Real Monitor',
+                  text: 'Real Monitor'.tr(),
                   collapsedStyle: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
                   expandedStyle: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white),
                   expandedAlignment: Alignment.bottomLeft,
@@ -86,10 +87,13 @@ class MainScreenWidget extends StatelessWidget {
       child: InkWell(
         radius: 5,
         onTap: () {},
-        child: Icon(
-          iconData,
-          color: Colors.white,
-          size: 25,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(
+            iconData,
+            color: Colors.white,
+            size: 25,
+          ),
         ),
       ),
     );

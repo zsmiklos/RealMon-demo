@@ -1,7 +1,7 @@
 
 class WatcherGroupLocationDTO {
   final List accessTokens;
-  final Map adminLevels;
+  final Map<String, dynamic> adminLevels;
   final String nameSpace;
   final List ids;
 

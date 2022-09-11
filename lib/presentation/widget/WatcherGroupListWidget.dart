@@ -71,7 +71,7 @@ class _WatcherGroupListWidgetState extends State<WatcherGroupListWidget> {
   List<Widget> getWatcherGroups(List<WatcherGroup> items) {
     List<Widget> list = [];
     /* todo: final code:
-    for (WatcherGroup item in items) {
+    for (final WatcherGroup item in items) {
       list.add(getWatcherGroupWidget(item));
     }*/
     // todo: temp for many rows

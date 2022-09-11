@@ -50,7 +50,7 @@ class WatcherGroup {
 
   factory WatcherGroup.fromDTOtoEntity(WatcherGroupDTO dto) {
     List<WatcherGroupLocation> locs = [];
-    for (WatcherGroupLocationDTO lDTO in dto.locations) {
+    for (final WatcherGroupLocationDTO lDTO in dto.locations) {
       locs.add(WatcherGroupLocation.fromDTOtoEntity(lDTO));
     }
 
@@ -87,26 +87,26 @@ class WatcherGroup {
   }
 
   String getEstateTypesName() {
-    String str = "";
+    StringBuffer sb = StringBuffer();
     if (estateTypes!= null && estateTypes!.contains("HOUSE")) {
-      if (str.isNotEmpty) {
-        str += ", ";
+      if (sb.isNotEmpty) {
+        sb.write(", ");
       }
-      str += "House".tr();
+      sb.write("House".tr());
     }
     if (estateTypes!= null && estateTypes!.contains("FLAT")) {
-      if (str.isNotEmpty) {
-        str += ", ";
+      if (sb.isNotEmpty) {
+        sb.write(", ");
       }
-      str += "Flat".tr();
+      sb.write("Flat".tr());
     }
-    return str;
+    return sb.toString();
   }
 
 
   String getLocations() {
     String str = "";
-    for (WatcherGroupLocation location in locations) {
+    for (final WatcherGroupLocation location in locations) {
       String city = location.adminLevels["8"];
       if (str.isNotEmpty) {
         str += ", ";

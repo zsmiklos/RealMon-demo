@@ -17,7 +17,7 @@ class WatcherGroupRepositoryImpl {
       List<WatcherGroupDTO> dtoList = await remoteDataSource.fetchWatcherGroups();
 
       List<WatcherGroup> list = [];
-      for (WatcherGroupDTO dto in dtoList) {
+      for (final WatcherGroupDTO dto in dtoList) {
         list.add(WatcherGroup.fromDTOtoEntity(dto));
       }
 
