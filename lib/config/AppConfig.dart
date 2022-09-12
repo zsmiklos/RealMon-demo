@@ -5,7 +5,7 @@ class AppConfig {
 
   static const primaryColor = Color(0xFF45a3e6);
 
-  // 1..6 : dark to light
+  // 1..6 : from dark to light
 
   static const Color blue1 = Color(0xFF0642ba);
   static const Color blue2 = Color(0xFF1468cf);

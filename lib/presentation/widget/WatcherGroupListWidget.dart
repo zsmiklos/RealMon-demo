@@ -30,7 +30,7 @@ class _WatcherGroupListWidgetState extends State<WatcherGroupListWidget> {
             future: _repo.fetchWatcherGroups(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                print("hasError:\n${snapshot.error}");
+                //print("hasError:\n${snapshot.error}");
                 return Padding(
                   padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
                   child: Center(

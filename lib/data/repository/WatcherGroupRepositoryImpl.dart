@@ -1,15 +1,15 @@
 
 import '../../domain/entity/WatcherGroup.dart';
+import '../../domain/repository/WatcherGroupRepository.dart';
 import '../datasource/WatcherGroupRemoteDataSource.dart';
 import '../dto/WatcherGroupDTO.dart';
 
-class WatcherGroupRepositoryImpl {
+class WatcherGroupRepositoryImpl implements WatcherGroupRepository {
   late WatcherGroupRemoteDataSource remoteDataSource;
 
   WatcherGroupRepositoryImpl({
     required this.remoteDataSource,
-  }) {
-  }
+  });
 
   @override
   Future<List<WatcherGroup>> fetchWatcherGroups() async {
@@ -22,7 +22,7 @@ class WatcherGroupRepositoryImpl {
       }
 
       return list;
-    } on Exception catch (e) {
+    } on Exception {
       rethrow;
     }
   }
