@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:realmon_demo/data/repository/WatcherGroupRepositoryImpl.dart';
 import 'package:realmon_demo/domain/entity/WatcherGroup.dart';
 
 import '../../config/AppConfig.dart';
-import '../../data/datasource/WatcherGroupRemoteDataSource.dart';
 import 'WatcherGroupWidget.dart';
 
 
@@ -16,18 +16,13 @@ class WatcherGroupListWidget extends StatefulWidget {
 }
 
 class _WatcherGroupListWidgetState extends State<WatcherGroupListWidget> {
-  late WatcherGroupRepositoryImpl _repo;
-
-  _WatcherGroupListWidgetState() {
-    _repo = WatcherGroupRepositoryImpl(remoteDataSource: WatcherGroupRemoteDataSource());
-  }
 
   @override
   Widget build(BuildContext context) {
     return
       SliverToBoxAdapter(
         child: FutureBuilder<List<WatcherGroup>>(
-            future: _repo.fetchWatcherGroups(),
+            future: Provider.of<WatcherGroupRepositoryImpl>(context).fetchWatcherGroups(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 //print("hasError:\n${snapshot.error}");

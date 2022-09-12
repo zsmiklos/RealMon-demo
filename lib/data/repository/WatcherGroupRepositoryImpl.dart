@@ -1,10 +1,12 @@
 
+import 'package:flutter/material.dart';
+
 import '../../domain/entity/WatcherGroup.dart';
 import '../../domain/repository/WatcherGroupRepository.dart';
 import '../datasource/WatcherGroupRemoteDataSource.dart';
 import '../dto/WatcherGroupDTO.dart';
 
-class WatcherGroupRepositoryImpl implements WatcherGroupRepository {
+class WatcherGroupRepositoryImpl extends ChangeNotifier implements WatcherGroupRepository {
   late WatcherGroupRemoteDataSource remoteDataSource;
 
   WatcherGroupRepositoryImpl({
@@ -26,4 +28,5 @@ class WatcherGroupRepositoryImpl implements WatcherGroupRepository {
       rethrow;
     }
   }
+
 }

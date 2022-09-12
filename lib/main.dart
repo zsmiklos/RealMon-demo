@@ -2,7 +2,10 @@ import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'data/datasource/WatcherGroupRemoteDataSource.dart';
+import 'data/repository/WatcherGroupRepositoryImpl.dart';
 import 'presentation/page/MainScreenWidget.dart';
 
 void main() async {
@@ -10,12 +13,15 @@ void main() async {
   await EasyLocalization.ensureInitialized();
 
   runApp(
-      EasyLocalization(
+      ChangeNotifierProvider(
+      create: (context) => WatcherGroupRepositoryImpl(remoteDataSource: WatcherGroupRemoteDataSource()),
+      child: EasyLocalization(
           supportedLocales: const [Locale('en', ''), Locale('hu', '')],
           path: 'assets/translations',
           fallbackLocale: const Locale('en', ''),
           startLocale: const Locale('hu'),
           child: const MyApp()
+      )
       )
   );
 }
