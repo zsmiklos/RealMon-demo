@@ -14,14 +14,14 @@ void main() async {
 
   runApp(
       ChangeNotifierProvider(
-      create: (context) => WatcherGroupRepositoryImpl(remoteDataSource: WatcherGroupRemoteDataSource()),
-      child: EasyLocalization(
-          supportedLocales: const [Locale('en', ''), Locale('hu', '')],
-          path: 'assets/translations',
-          fallbackLocale: const Locale('en', ''),
-          startLocale: const Locale('hu'),
-          child: const MyApp()
-      )
+          create: (context) => WatcherGroupRepositoryImpl(remoteDataSource: WatcherGroupRemoteDataSource()),
+          child: EasyLocalization(
+              supportedLocales: const [Locale('en', ''), Locale('hu', '')],
+              path: 'assets/translations',
+              fallbackLocale: const Locale('en', ''),
+              startLocale: const Locale('hu'),
+              child: const MyApp()
+          )
       )
   );
 }
